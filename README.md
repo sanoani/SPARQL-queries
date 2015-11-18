@@ -17,6 +17,12 @@ SPARQL queries
             dbp:東京 dbp-owl:wikiPageWikiLink ?thing1.
             ?thing1 rdfs:label ?thing2.
     }
+### 入力の意味 ###
+prefix は、後ろに書かれているURI(http://ja.dbpedia.org/resource/ みたいなの)を dbp: という文字に省略してクエリを書きますよ〜〜と宣言することができる。
+### 出力先のURL ###
+URLをよく見ると、クエリが書かれているのがわかります。  
+今回のResults FormatはJSONで指定しています。もちろんHTML形式にも対応しています。
+[http://ja.dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fja.dbpedia.org&query=prefix+dbp%3A+%3Chttp%3A%2F%2Fja.dbpedia.org%2Fresource%2F%3E%0D%0Aprefix+dbp-owl%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0Aprefix+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+%7B%0D%0A%09dbp%3A%E6%9D%B1%E4%BA%AC+dbp-owl%3AwikiPageWikiLink+%3Fthing1.%0D%0A%09%3Fthing1+rdfs%3Alabel+%3Fthing2.%0D%0A%7D&format=application%2Fsparql-results%2Bjson&timeout=0&debug=on](http://ja.dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fja.dbpedia.org&query=prefix+dbp%3A+%3Chttp%3A%2F%2Fja.dbpedia.org%2Fresource%2F%3E%0D%0Aprefix+dbp-owl%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0Aprefix+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+%7B%0D%0A%09dbp%3A%E6%9D%B1%E4%BA%AC+dbp-owl%3AwikiPageWikiLink+%3Fthing1.%0D%0A%09%3Fthing1+rdfs%3Alabel+%3Fthing2.%0D%0A%7D&format=application%2Fsparql-results%2Bjson&timeout=0&debug=on)
 ### 出力例 ###
     { "head": { "link": [], "vars": ["thing1", "thing2"] },"results": { "distinct": false, "ordered": true, "bindings": [
     { "thing1": { "type": "uri", "value": "http://ja.dbpedia.org/resource/1823\u5E74" }	, "thing2": { "type": "literal", "xml:lang": "ja", "value": "1823\u5E74" }},
