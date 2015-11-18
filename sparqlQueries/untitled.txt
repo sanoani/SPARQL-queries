@@ -1,7 +1,0 @@
-PREFIX dbpedia:	 <hep://dbpedia.org/resource/>
-PREFIX dbp‐owl:  <hep://dbpedia.org/ontology/>	
-
-SELECT ?birthPlace
-WHERE{
-	dbpedia:Kaoru_Mori dbp-owl:birthPlace	?birthPlace	.
-	 }	 
