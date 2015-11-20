@@ -1,13 +1,14 @@
 SPARQL Query
 ======================
 [DBpedia](http://ja.dbpedia.org/)で使うためのSPARQLクエリです。  
-主語を「東京」としたリソースページ内で、「wikiPageWikiLink」のプロパティ（述語）を持つ目的語をラベルとして取得するためのクエリです。取得データ形式はJSONとなっています。  
+  
+ここで示している例では、主語を「東京」としたリソースページ内で「wikiPageWikiLink」のプロパティ（述語）を持つ目的語を探しだし、それらをラベルとして取得するためのクエリです。取得データ形式はJSONとなっています。  
  
 使い方
 ------
-###   SPARQLエンドポイント ###
+###SPARQLエンドポイント
 [SPARQLエンドポイント](http://ja.dbpedia.org/sparql)にアクセスする。  
-### 入力例 ###
+###入力例
     prefix dbp: <http://ja.dbpedia.org/resource/>
     prefix dbp-owl: <http://dbpedia.org/ontology/>
     prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -17,13 +18,21 @@ SPARQL Query
             dbp:東京 dbp-owl:wikiPageWikiLink ?thing1.
             ?thing1 rdfs:label ?thing2.
     }
-### 入力の意味 ###
-prefix は、後ろに書かれているURI(http://ja.dbpedia.org/resource/ みたいなの)を dbp: という文字に省略してクエリを書きますよ〜〜と宣言することができる。
+###入力の意味
+1. ```prefix```   
+これは、後ろに書かれているURI(例： ```http://ja.dbpedia.org/resource/``` )を ```dbp:``` などという文字に省略してクエリを書きますよ、と宣言するためのものです。
+2. ```SELECT```  
+取得したい変数を指定している。```SELECT *```とアスタリスク「*」を指定するとWHERE文の中のすべての変数を指定したことになる。
+3. ```WHERE```  
+```{}```内に検索したいRDFのトリプル（主語・述語・目的語）を記述します。
+4. ```rdfs:label```  
+人間が読みやすい形のリソース名です。簡単に表すと「日本」のような文字列のことです。  
+
 ### 出力先のURL ###
 URLをよく見ると、クエリが書かれているのがわかります。  
 今回のResults FormatはJSONで指定しています。もちろんHTML形式にも対応しています。
 [http://ja.dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fja.dbpedia.org&query=prefix+dbp%3A+%3Chttp%3A%2F%2Fja.dbpedia.org%2Fresource%2F%3E%0D%0Aprefix+dbp-owl%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0Aprefix+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+%7B%0D%0A%09dbp%3A%E6%9D%B1%E4%BA%AC+dbp-owl%3AwikiPageWikiLink+%3Fthing1.%0D%0A%09%3Fthing1+rdfs%3Alabel+%3Fthing2.%0D%0A%7D&format=application%2Fsparql-results%2Bjson&timeout=0&debug=on](http://ja.dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fja.dbpedia.org&query=prefix+dbp%3A+%3Chttp%3A%2F%2Fja.dbpedia.org%2Fresource%2F%3E%0D%0Aprefix+dbp-owl%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2F%3E%0D%0Aprefix+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0A%0D%0ASELECT+*%0D%0AWHERE+%7B%0D%0A%09dbp%3A%E6%9D%B1%E4%BA%AC+dbp-owl%3AwikiPageWikiLink+%3Fthing1.%0D%0A%09%3Fthing1+rdfs%3Alabel+%3Fthing2.%0D%0A%7D&format=application%2Fsparql-results%2Bjson&timeout=0&debug=on)
-### 出力例 ###
+###出力例
     { "head": { "link": [], "vars": ["thing1", "thing2"] },"results": { "distinct": false, "ordered": true, "bindings": [
     { "thing1": { "type": "uri", "value": "http://ja.dbpedia.org/resource/1823\u5E74" }	, "thing2": { "type": "literal", "xml:lang": "ja", "value": "1823\u5E74" }},
     { "thing1": { "type": "uri", "value": "http://ja.dbpedia.org/resource/1833\u5E74" }	, "thing2": { "type": "literal", "xml:lang": "ja", "value": "1833\u5E74" }},
@@ -234,3 +243,6 @@ URLをよく見ると、クエリが書かれているのがわかります。
     { "thing1": { "type": "uri", "value": "http://ja.dbpedia.org/resource/\u660E\u6CBB\u5143\u5E74" }	, "thing2": { "type": "literal", "xml:lang": "ja", "value": "\u660E\u6CBB\u5143\u5E74" }},
     { "thing1": { "type": "uri", "value": "http://ja.dbpedia.org/resource/\u6771\u4EAC\u3092\u4E2D\u5FC3\u3068\u3059\u308B\u5730\u57DF\u306E\u5B9A\u7FA9\u4E00\u89A7" }	, "thing2": { "type": "literal", "xml:lang": "ja", "value": "\u6771\u4EAC\u3092\u4E2D\u5FC3\u3068\u3059\u308B\u5730\u57DF\u306E\u5B9A\u7FA9\u4E00\u89A7" }},
     { "thing1": { "type": "uri", "value": "http://ja.dbpedia.org/resource/\u6C5F\u6238\u85E9\u90B8" }	, "thing2": { "type": "literal", "xml:lang": "ja", "value": "\u6C5F\u6238\u85E9\u90B8" }} ] } }
+
+###参考
+http://www.asahi-net.or.jp/~ax2s-kmtn/internet/rdf/rdf-sparql-query.html
